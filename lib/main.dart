@@ -1,4 +1,5 @@
 import 'package:everything_flutter/pages/home.dart';
+import 'package:everything_flutter/pages/news.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
