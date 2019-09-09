@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'CircularStd',
         primarySwatch: Colors.blue,
+        brightness: Brightness.light
       ),
       home: HomePage(),
     );
