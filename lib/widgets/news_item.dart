@@ -44,6 +44,7 @@ class NewsItem extends StatelessWidget {
                   height: _scaler.getHeight(16),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(

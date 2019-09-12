@@ -1,3 +1,8 @@
-class HomeEvent {}
+part of 'home_bloc.dart';
 
-class FetchNewsData extends HomeEvent{}
+@immutable
+abstract class HomeEvent extends Equatable {
+  HomeEvent([List props = const []]) : super(props);
+}
+
+class FetchNewsData extends HomeEvent {}

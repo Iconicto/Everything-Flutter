@@ -1,17 +1,36 @@
-import 'package:everything_flutter/model/news.dart';
+part of 'home_bloc.dart';
 
-class HomeState {}
-
-class InitialisedHomeState extends HomeState {}
-
-class DataFetchedHomeState extends HomeState {
-  final List<News> data;
-
-  DataFetchedHomeState({this.data});
-
-  bool get hasData => data.length > 0;
+@immutable
+abstract class HomeState extends Equatable {
+  HomeState([List props = const []]) : super(props);
 }
 
-class ErrorHomeState extends HomeState {}
+class InitialHomeState extends HomeState {
+  @override
+  String toString() => 'InitialHomeState';
+}
 
-class BusyHomeState extends HomeState {}
+class NetworkBusyHomeState extends HomeState {
+  @override
+  String toString() => 'NetworkBusyHomeState';
+}
+
+class NetworkErrorHomeState extends HomeState {
+  final String error;
+
+  NetworkErrorHomeState({this.error});
+  
+  @override
+  String toString() => 'NetworkErrorHomeState';
+}
+
+class NewsFetchedHomeState extends HomeState {
+  final List<News> newsList;
+
+  NewsFetchedHomeState({this.newsList = const []}) : super([newsList]);
+
+  bool get hasData => newsList.length > 0;
+
+  @override
+  String toString() => 'NewsFetchedHomeState';
+}

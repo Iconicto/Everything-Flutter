@@ -1,6 +1,3 @@
-import 'package:everything_flutter/bloc/home/home_event.dart';
-import 'package:everything_flutter/bloc/home/home_model.dart';
-import 'package:everything_flutter/bloc/home/home_state.dart';
 import 'package:everything_flutter/model/news.dart';
 import 'package:everything_flutter/widgets/news_item.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final model = HomeModel();
+//  final model = HomeModel();
   ScreenScaler _scaler;
 
   List<Color> pastelColors = [
@@ -68,7 +65,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    model.dispose(FetchNewsData());
+//    model.dispose(FetchNewsData());
     super.initState();
   }
 
@@ -81,24 +78,7 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(_scaler.getHeight(3.0)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Icon(Icons.menu),
-                    Text(
-                      "${DateFormat("MMM d, yyyy").format(DateTime.now())}",
-                      style: TextStyle(
-//                        color: Color(0xFF545454),
-                        color: Colors.black54,
-                        fontSize: _scaler.getTextSize(11),
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              _buildAppBar(),
               Text(
                 "Your Timeline",
                 style: TextStyle(
@@ -106,14 +86,15 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: _scaler.getHeight(2)),
+              SizedBox(height: _scaler.getHeight(1)),
               _buildMenuItems(),
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    _scaler.getWidth(6),
-                    _scaler.getHeight(2),
-                    _scaler.getWidth(6),
-                    _scaler.getHeight(2)),
+                  _scaler.getWidth(6),
+                  _scaler.getHeight(2),
+                  _scaler.getWidth(6),
+                  _scaler.getHeight(2),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -131,56 +112,53 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              StreamBuilder(
-                  stream: model.homeState,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return _getInformationMessage(snapshot.error.toString());
-                    }
-
-                    var homeState = snapshot.data;
-
-                    if (!snapshot.hasData || homeState is BusyHomeState) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-
-                    if (homeState is DataFetchedHomeState) {
-                      if (!homeState.hasData) {
-                        return _getInformationMessage(
-                            'No data found! Please try again!');
-                      }
-                    }
-
-                    return _buildNewsStand(homeState.data);
-
-                    return Flexible(
-                      child: ListView.separated(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) =>
-                            NewsItem(homeState.data[index]),
-                        separatorBuilder: (BuildContext context, int index) =>
-                            Divider(),
-                        itemCount: homeState.data.length,
-                      ),
-                    );
-
-                    return SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          NewsItem(newsItemThree),
-                          Divider(),
-                          NewsItem(newsItemTwo),
-                          Divider(),
-                          NewsItem(newsItem),
-                          Divider(),
-                        ],
-                      ),
-                    );
-                  })
+//              StreamBuilder(
+//                stream: model.homeState,
+//                builder: (context, snapshot) {
+//                  if (snapshot.hasError) {
+//                    return _getInformationMessage(snapshot.error.toString());
+//                  }
+//
+//                  var homeState = snapshot.data;
+//
+//                  if (!snapshot.hasData || homeState is BusyHomeState) {
+//                    return Center(child: CircularProgressIndicator());
+//                  }
+//
+//                  if (homeState is NewsFetchedHomeState) {
+//                    if (!homeState.hasData) {
+//                      return _getInformationMessage(
+//                          'No data found! Please try again!');
+//                    }
+//                  }
+//
+//                  return _buildNewsStand(homeState.data);
+//                },
+//              )
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Padding _buildAppBar() {
+    return Padding(
+      padding: EdgeInsets.all(_scaler.getHeight(2.0)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Icon(Icons.menu),
+          Text(
+            "${DateFormat("MMM d, yyyy").format(DateTime.now())}",
+            style: TextStyle(
+//                        color: Color(0xFF545454),
+              color: Colors.black54,
+              fontSize: _scaler.getTextSize(11),
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -199,10 +177,13 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(16.0),
                 color: pastelColors[index],
                 image: DecorationImage(
-                    image: AssetImage(imageAssets[index]),
-                    fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                        pastelColors[index], BlendMode.hardLight)),
+                  image: AssetImage(imageAssets[index]),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    pastelColors[index],
+                    BlendMode.hardLight,
+                  ),
+                ),
               ),
               child: Padding(
                 padding: EdgeInsets.all(_scaler.getWidth(5)),
@@ -222,9 +203,10 @@ class _HomePageState extends State<HomePage> {
                           child: Text(
                             newsTitles[index],
                             style: TextStyle(
-                                fontSize: _scaler.getTextSize(15),
-                                fontWeight: FontWeight.w800,
-                                color: titleColors[index]),
+                              fontSize: _scaler.getTextSize(15),
+                              fontWeight: FontWeight.w800,
+                              color: titleColors[index],
+                            ),
                           ),
                         ),
                         Padding(
@@ -233,32 +215,35 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: buttonColors[index],
-                                    boxShadow: [
-                                      new BoxShadow(
-                                        color: buttonColors[index],
-                                        blurRadius: 8.0,
+                              GestureDetector(
+                                onTap: () => Navigator.pushNamed(
+                                    context, newsTitles[index]),
+                                child: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: buttonColors[index],
+                                      boxShadow: [
+                                        new BoxShadow(
+                                          color: buttonColors[index],
+                                          blurRadius: 8.0,
+                                        ),
+                                      ]),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text(
+                                        "GO",
+                                        style: TextStyle(
+                                            fontSize: _scaler.getTextSize(12),
+                                            fontWeight: FontWeight.w800,
+                                            color: Colors.white),
                                       ),
-                                    ]),
-                                child: Row(
-//                                          mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Text(
-                                      "GO",
-                                      style: TextStyle(
-                                          fontSize: _scaler.getTextSize(12),
-                                          fontWeight: FontWeight.w800,
-                                          color: Colors.white),
-                                    ),
-                                    SizedBox(width: _scaler.getWidth(1)),
-                                    Icon(Icons.arrow_forward_ios,
-                                        size: _scaler.getTextSize(11),
-                                        color: Colors.white)
-                                  ],
+                                      SizedBox(width: _scaler.getWidth(1)),
+                                      Icon(Icons.arrow_forward_ios,
+                                          size: _scaler.getTextSize(11),
+                                          color: Colors.white)
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
