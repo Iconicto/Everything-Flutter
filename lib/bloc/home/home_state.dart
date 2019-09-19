@@ -19,7 +19,7 @@ class NetworkErrorHomeState extends HomeState {
   final String error;
 
   NetworkErrorHomeState({this.error});
-  
+
   @override
   String toString() => 'NetworkErrorHomeState';
 }

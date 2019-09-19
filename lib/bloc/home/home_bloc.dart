@@ -1,17 +1,18 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:everything_flutter/model/news.dart';
+import 'package:everything_flutter/services/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'home_event.dart';
-
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  final _repository = Repository();
+
   @override
   HomeState get initialState => InitialHomeState();
 
@@ -26,16 +27,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     yield NetworkBusyHomeState();
     try {
       // network call
-      final String _endpoint =
-          "https://everythingflutter.iconicto.com/api/widgets/";
-      final Dio _dio = Dio();
+      List<News> newsList = await _repository.fetchAllNews();
 
-      Response response = await _dio.get(_endpoint);
-
-      yield NewsFetchedHomeState(
-          newsList: NewsList.fromMap(response.data).data);
+      yield NewsFetchedHomeState(newsList: newsList);
     } catch (error, stacktrace) {
       // handle network call error
+      print(stacktrace);
       yield NetworkErrorHomeState(error: error.toString());
     }
   }

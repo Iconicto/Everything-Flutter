@@ -1,7 +1,5 @@
 import 'package:everything_flutter/constants/route_paths.dart' as routes;
-import 'package:everything_flutter/pages/home.dart';
-import 'package:everything_flutter/pages/news.dart';
-import 'package:everything_flutter/pages/widget.dart';
+import 'package:everything_flutter/ui/pages/pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +12,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case routes.NewsPageRoute:
       return MaterialPageRoute(
         builder: (context) => NewsPage(),
+      );
+    case routes.TutorialsPageRoute:
+      return MaterialPageRoute(
+        builder: (context) => TutorialPage(),
       );
     case routes.WidgetsPageRoute:
       return MaterialPageRoute(

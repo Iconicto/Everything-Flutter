@@ -1,1 +1,1 @@
-class Widget{}
+class Widget {}

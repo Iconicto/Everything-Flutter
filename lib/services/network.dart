@@ -1,5 +1,3 @@
-
-
 //https://everythingflutter.iconicto.com/api/communities
 //https://everythingflutter.iconicto.com/api/widgets
 //https://everythingflutter.iconicto.com/api/tutorials
@@ -14,15 +12,15 @@ import 'package:everything_flutter/model/news.dart';
 import 'package:everything_flutter/model/tutorial.dart';
 
 abstract class Api {
-		Future<List<News>> getAllNews();
-		
-		List<Community> getAllCommunities();
-		
-		List<Event> getAllEvents();
-		
-		List<Tutorial> getAllTutorials();
-		
-		List<Widget> getAllWidgets();
+  Future<List<News>> getAllNews();
+
+  List<Community> getAllCommunities();
+
+  List<Event> getAllEvents();
+
+  List<Tutorial> getAllTutorials();
+
+  List<Widget> getAllWidgets();
 }
 
 class NetworkService extends Api {
@@ -40,12 +38,13 @@ class NetworkService extends Api {
 
   @override
   Future<List<News>> getAllNews() async {
-	  final String _endpoint = "https://everythingflutter.iconicto.com/api/widgets/";
-	  final Dio _dio = Dio();
-	
-	  Response response = await _dio.get(_endpoint);
-	
-	  return NewsList.fromMap(response.data).data;
+    final String _endpoint =
+        "https://everythingflutter.iconicto.com/api/ui.widgets/";
+    final Dio _dio = Dio();
+
+    Response response = await _dio.get(_endpoint);
+
+    return NewsList.fromMap(response.data).data;
   }
 
   @override
@@ -55,14 +54,15 @@ class NetworkService extends Api {
   }
 
   @override
-  List<Widget> getAllWidgets()  {
-	  final String _endpoint = "https://everythingflutter.iconicto.com/api/widgets/";
-	  final Dio _dio = Dio();
-	  
+  List<Widget> getAllWidgets() {
+    final String _endpoint =
+        "https://everythingflutter.iconicto.com/api/ui.widgets/";
+    final Dio _dio = Dio();
+
 //		Response response = await _dio.get(_endpoint);
 
 //		return NewsList.fromMap(response.data).data;
-	
+
 //	  _stateController.add(BusyHomeState());
 //	  try {
 //		  Response response = await _dio.get(_endpoint);
@@ -75,5 +75,4 @@ class NetworkService extends Api {
 //	  }
     return null;
   }
-
 }

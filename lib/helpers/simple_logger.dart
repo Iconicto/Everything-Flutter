@@ -5,5 +5,4 @@ class SimplePrinterLogger extends LogPrinter {
   void log(LogEvent event) {
     // TODO: implement log
   }
-
 }
