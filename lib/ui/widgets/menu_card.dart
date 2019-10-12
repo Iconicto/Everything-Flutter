@@ -1,3 +1,4 @@
+import 'package:everything_flutter/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class MenuCard extends StatelessWidget {
@@ -40,6 +41,13 @@ class MenuCard extends StatelessWidget {
             BlendMode.hardLight,
           ),
         ),
+//          boxShadow: [
+//            new BoxShadow(
+//              color: color,
+//              blurRadius: 12.0,
+//              spreadRadius: 2
+//              ),
+//          ]
       ),
       child: child,
     );

@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 class AppColors {
+  static const Color BLUE = Color(0xFF40ACF9);
+
   static List<Color> pastelColors = [
     Color(0xFFfd987c),
     Color(0xFF55DFDE),

@@ -34,6 +34,14 @@ dependencies:
   bloc:
   flutter_bloc:
   snaplist: ^0.1.8
+  flutter_statusbarcolor: any
+  functional_widget_annotation: ^0.5.1
+  drawerbehavior: ^0.0.8
+
+
+#builders:
+#  functional_widget: ^0.7.1
+#  build_runner: ^1.7.0
 
 
 dev_dependencies:

@@ -76,8 +76,8 @@ class ScreenUtil {
   static double getTextSize(double textSize) =>
       textSize / 100 * (getHeight(textSize) + getWidth(textSize));
 
-  static double getFullScreen(double textSize) =>
-      textSize / 100 * (getHeight(textSize) + getWidth(textSize));
+  static double getFullScreen(double percent) =>
+      percent / 100 * (getHeight(percent) + getWidth(percent));
 
   static EdgeInsetsGeometry getPadding(double height, double width) =>
       EdgeInsets.fromLTRB(getWidth(width), getHeight(height), getWidth(width),

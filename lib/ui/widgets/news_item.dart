@@ -1,7 +1,8 @@
+import 'package:everything_flutter/constants/text_styles.dart';
+import 'package:everything_flutter/helpers/screen_util.dart';
 import 'package:everything_flutter/helpers/utils.dart';
 import 'package:everything_flutter/model/news.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NewsItem extends StatelessWidget {
@@ -11,37 +12,30 @@ class NewsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScreenScaler _scaler = ScreenScaler()..init(context);
-
     return GestureDetector(
       onTap: () {
-        print("hi");
         Utils.launchURL(_news.link);
       },
       child: Padding(
-        padding: EdgeInsets.fromLTRB(_scaler.getWidth(3), _scaler.getHeight(1),
-            _scaler.getWidth(3), _scaler.getHeight(1)),
+        padding: ScreenUtil.getPaddingAll(8.0),
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
           child: Row(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: ScreenUtil.getPaddingAll(5),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12.0),
+                  borderRadius: ScreenUtil.getBorderRadiusCircular(10.0),
                   child: Image.network(
                     _news.image,
-                    height: _scaler.getHeight(15),
-                    width: _scaler.getWidth(25),
+                    height: ScreenUtil.getHeight(13),
+                    width: ScreenUtil.getWidth(25),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               Expanded(
                 child: Container(
-                  height: _scaler.getHeight(16),
+                  height: ScreenUtil.getHeight(14),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,16 +43,11 @@ class NewsItem extends StatelessWidget {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          _news.title,
-                          softWrap: true,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: _scaler.getTextSize(12),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        child: Text(_news.title,
+                            softWrap: true,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyles.cardTitle),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -67,19 +56,11 @@ class NewsItem extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               _news.source.name.toUpperCase(),
-                              style: TextStyle(
-                                color: Color(0xFF40ACF9),
-                                fontSize: _scaler.getTextSize(10),
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: TextStyles.blueSubtitle,
                             ),
                             Text(
                               timeago.format(_news.time),
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: _scaler.getTextSize(10),
-                                fontWeight: FontWeight.w300,
-                              ),
+                              style: TextStyles.subtitle,
                             ),
                           ],
                         ),

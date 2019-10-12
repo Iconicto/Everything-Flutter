@@ -1,20 +1,32 @@
 PODS:
+  - drawerbehavior (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
+  - flutter_statusbarcolor (0.0.1):
+    - Flutter
   - url_launcher (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - drawerbehavior (from `.symlinks/plugins/drawerbehavior/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
+  - flutter_statusbarcolor (from `.symlinks/plugins/flutter_statusbarcolor/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 EXTERNAL SOURCES:
+  drawerbehavior:
+    :path: ".symlinks/plugins/drawerbehavior/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
+  flutter_statusbarcolor:
+    :path: ".symlinks/plugins/flutter_statusbarcolor/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
+  drawerbehavior: 688832bffec482cabacd8db3248ba582e1c2ea92
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_statusbarcolor: 8afb1071ed8c58be929f1e32b36c629771fd2259
   url_launcher: 0067ddb8f10d36786672aa0722a21717dba3a298
 
 PODFILE CHECKSUM: 10ae9c18d12c9ffc2275c9a159a3b1e281990db0

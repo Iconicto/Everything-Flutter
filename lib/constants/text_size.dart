@@ -1,7 +1,8 @@
 
 
 class TextSize {
-  static double title = 13;
-  static double miniTitle = 12;
-  static double subtitle = 10;
+  static double title = 12.5;
+  static double miniTitle = 11.5;
+  static double cardTitle = 11;
+  static double subtitle = 9;
 }

@@ -70,7 +70,7 @@ packages:
       name: crypto
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.3"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -85,6 +85,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.16"
+  drawerbehavior:
+    dependency: "direct main"
+    description:
+      name: drawerbehavior
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.8"
   equatable:
     dependency: "direct main"
     description:
@@ -111,11 +118,25 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  flutter_statusbarcolor:
+    dependency: "direct main"
+    description:
+      name: flutter_statusbarcolor
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  functional_widget_annotation:
+    dependency: "direct main"
+    description:
+      name: functional_widget_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.1"
   get_it:
     dependency: "direct main"
     description:

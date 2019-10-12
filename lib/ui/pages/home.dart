@@ -1,11 +1,13 @@
 import 'package:everything_flutter/constants/app_colors.dart';
 import 'package:everything_flutter/constants/strings.dart';
+import 'package:everything_flutter/constants/test_data.dart';
 import 'package:everything_flutter/constants/theme_data.dart';
 import 'package:everything_flutter/helpers/screen_util.dart';
 import 'package:everything_flutter/model/news.dart';
 import 'package:everything_flutter/ui/widgets/menu_card.dart';
 import 'package:everything_flutter/ui/widgets/news_item.dart';
 import 'package:flutter/material.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:intl/intl.dart';
 import 'package:snaplist/snaplist.dart';
 
@@ -16,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>(); // ADD THIS LINE
+  
   @override
   void initState() {
 //    model.dispose(FetchNewsData());
@@ -27,137 +31,161 @@ class _HomePageState extends State<HomePage> {
     ScreenUtil()..init(context);
 
     return Scaffold(
-      body: _body,
-      drawer: _drawer,
-      appBar: _appBar,
+      key: _scaffoldKey,
+      appBar: _buildAppBar(),
+      body: _buildBody(),
+      drawer: _buildDrawer(),
     );
   }
+
+
+  @widget
+  Widget _buildBody() => SafeArea(
+    child: SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          _timelineTitle,
+          _buildMenuCards(),
+          _buildNewsFeedBar(),
+          _buildNewsStand(news)
+        ],
+        ),
+      ),
+    );
+  
+  @widget
+  Widget _buildNewsFeedBar() => Padding(
+    padding: ScreenUtil.getPaddingLTRB(4, 2, 4, 0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(
+          "Your News Feed",
+          style: TextStyles.miniTitle,
+          ),
+        GestureDetector(
+          onTap : () {
+            print("hello");
+            _scaffoldKey.currentState.openDrawer(); // CHANGE THIS LINE
+          },
+          child: Icon(
+            Icons.more_vert,
+            size: ScreenUtil.getFullScreen(12),
+            ),
+          ),
+      ],
+      ),
+    );
 }
 
-final _body = SafeArea(
-  child: SingleChildScrollView(
-    child: Column(
-      children: <Widget>[
-        _timelineTitle,
-        _menuCards,
-        _newsFeedBar,
-      ],
-    ),
-  ),
-);
+List<News> news = [newsItem, newsItemTwo];
+
 
 final _timelineTitle = Text(
   "Your Timeline",
   style: TextStyles.title,
 );
 
-final _newsFeedBar = Padding(
-  padding: ScreenUtil.getPaddingLTRB(4, 2, 4, 2),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: <Widget>[
-      Text("Your News Feed", style: TextStyles.miniTitle),
-      Icon(
-        Icons.more_vert,
-        size: ScreenUtil.getFullScreen(12),
-      ),
-    ],
-  ),
-);
 
-final _menuCards = Container(
-  height: ScreenUtil.getHeight(35),
-  width: double.infinity,
-  child: SnapList(
-    builder: (context, index, data) => MenuCard(
+@widget
+Container _buildMenuCards() => Container(
       height: ScreenUtil.getHeight(35),
-      width: ScreenUtil.getWidth(65),
-      margin: ScreenUtil.getPaddingLTRB(2, 1, 0, 0),
-      borderRadius: ScreenUtil.getBorderRadiusCircular(12),
-      imageAsset: imageAssets[index],
-      color: AppColors.pastelColors[index],
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          padding: ScreenUtil.getPaddingAll(10),
-          decoration: BoxDecoration(
-            borderRadius: ScreenUtil.getBorderRadiusCircular(12),
-            color: Colors.white70,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Text(
-                menuCardTitles[index],
-                style: TextStyle(
-                  fontSize: ScreenUtil.getTextSize(13),
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.titleColors[index],
-                ),
+      width: double.infinity,
+      child: SnapList(
+        builder: (context, index, data) => MenuCard(
+          height: ScreenUtil.getHeight(40),
+          width: ScreenUtil.getWidth(65),
+          margin: ScreenUtil.getPaddingLTRB(2, 1, 0, 0),
+          borderRadius: ScreenUtil.getBorderRadiusCircular(12),
+          imageAsset: imageAssets[index],
+          color: AppColors.pastelColors[index],
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: ScreenUtil.getPaddingAll(10),
+              decoration: BoxDecoration(
+                borderRadius: ScreenUtil.getBorderRadiusCircular(12),
+                color: Colors.white70,
               ),
-              GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, menuCardTitles[index]),
-                child: Container(
-                  padding: ScreenUtil.getPaddingAll(8),
-                  decoration: BoxDecoration(
-                      borderRadius: ScreenUtil.getBorderRadiusCircular(12),
-                      color: AppColors.buttonColors[index],
-                      boxShadow: [
-                        new BoxShadow(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Text(
+                    menuCardTitles[index],
+                    style: TextStyle(
+                      fontSize: ScreenUtil.getTextSize(13),
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.titleColors[index],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () =>
+                        Navigator.pushNamed(context, menuCardTitles[index]),
+                    child: Container(
+                      padding: ScreenUtil.getPaddingAll(8),
+                      decoration: BoxDecoration(
+                          borderRadius: ScreenUtil.getBorderRadiusCircular(12),
                           color: AppColors.buttonColors[index],
-                          blurRadius: 8.0,
-                        ),
-                      ]),
-                  child: Icon(Icons.arrow_forward_ios,
-                      size: ScreenUtil.getTextSize(13), color: Colors.white),
-                ),
+                          boxShadow: [
+                            new BoxShadow(
+                              color: AppColors.buttonColors[index],
+                              blurRadius: 8.0,
+                            ),
+                          ]),
+                      child: Icon(Icons.arrow_forward_ios,
+                          size: ScreenUtil.getTextSize(13),
+                          color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
+        count: 4,
+        sizeProvider: (index, data) =>
+            Size(ScreenUtil.getWidth(65), ScreenUtil.getHeight(35)),
+        separatorProvider: (index, data) =>
+            Size(ScreenUtil.getWidth(1), ScreenUtil.getHeight(5)),
       ),
-    ),
-    count: 4,
-    sizeProvider: (index, data) =>
-        Size(ScreenUtil.getWidth(65), ScreenUtil.getHeight(35)),
-    separatorProvider: (index, data) =>
-        Size(ScreenUtil.getWidth(1), ScreenUtil.getHeight(5)),
-  ),
-);
+    );
 
-final _drawer = Drawer(
-  child: ListView(
-    children: <Widget>[
-      DrawerHeader(
-        child: Text('Custom Header'),
-        decoration: BoxDecoration(
-          color: Colors.blue,
-        ),
+@widget
+Drawer _buildDrawer() => Drawer(
+      child: ListView(
+        children: <Widget>[
+          DrawerHeader(
+            child: Text('Custom Header'),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.photo),
+            title: Text('First layout'),
+          ),
+          ListTile(
+            title: Text('Communicate'),
+            //without leading =)
+          ),
+          ListTile(
+            leading: Icon(Icons.share),
+            title: Text('Share layout'),
+          )
+        ],
       ),
-      ListTile(
-        leading: Icon(Icons.photo),
-        title: Text('First layout'),
-      ),
-      ListTile(
-        title: Text('Communicate'),
-        //without leading =)
-      ),
-      ListTile(
-        leading: Icon(Icons.share),
-        title: Text('Share layout'),
-      )
-    ],
-  ),
-);
+    );
 
-final _appBar = AppBar(
-  title: _appBarTitle,
-  iconTheme: IconThemeData(color: Colors.black),
-  elevation: 0,
-  backgroundColor: Colors.grey[50],
-);
+@widget
+AppBar _buildAppBar() => AppBar(
+      title: _appBarTitle,
+      iconTheme: IconThemeData(color: Colors.black),
+      elevation: 0,
+      brightness: Brightness.light,
+      // or use Brightness.dark
+      backgroundColor: Colors.grey[50],
+    );
 
 final _appBarTitle = Align(
   alignment: Alignment.centerRight,
@@ -167,11 +195,12 @@ final _appBarTitle = Align(
   ),
 );
 
+@widget
 Widget _buildNewsStand(List<News> newsList) {
   List<Widget> _columnItems = [];
   for (var news in newsList) {
     _columnItems.add(NewsItem(news));
-    _columnItems.add(Divider());
+//    _columnItems.add(Divider());
   }
   return Column(children: _columnItems);
 }
