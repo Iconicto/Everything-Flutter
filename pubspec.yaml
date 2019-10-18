@@ -24,8 +24,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   intl:
-  timeago: ^2.0.18
-  flutter_screen_scaler:
+  timeago: ^2.0.20
+  flutter_screen_scaler: ^2.0.0
   url_launcher:
   dio:
   get_it:
@@ -34,7 +34,6 @@ dependencies:
   bloc:
   flutter_bloc:
   snaplist: ^0.1.8
-  flutter_statusbarcolor: any
   functional_widget_annotation: ^0.5.1
   drawerbehavior: ^0.0.8
 

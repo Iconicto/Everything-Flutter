@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     ScreenUtil()..init(context);
 
     return Scaffold(
@@ -65,7 +66,6 @@ class _HomePageState extends State<HomePage> {
           ),
         GestureDetector(
           onTap : () {
-            print("hello");
             _scaffoldKey.currentState.openDrawer(); // CHANGE THIS LINE
           },
           child: Icon(
@@ -84,7 +84,7 @@ List<News> news = [newsItem, newsItemTwo];
 final _timelineTitle = Text(
   "Your Timeline",
   style: TextStyles.title,
-);
+  );
 
 
 @widget

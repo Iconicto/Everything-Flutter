@@ -7,7 +7,7 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class NewsItem extends StatelessWidget {
   final News _news;
-
+  
   NewsItem(this._news);
 
   @override
